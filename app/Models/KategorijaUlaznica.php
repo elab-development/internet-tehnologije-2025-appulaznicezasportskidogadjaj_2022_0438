@@ -13,4 +13,14 @@ class KategorijaUlaznica extends Model
         'cena',
         'kapacitet',
     ];
+
+    public function sportskiDogadjaj()
+    {
+        return $this->belongsTo(SportskiDogadjaj::class, 'dogadjajId');
+    }
+
+    public function ulaznice()
+    {
+        return $this->hasMany(Ulaznica::class, 'kategorijaUlaznicaId');
+    }
 }

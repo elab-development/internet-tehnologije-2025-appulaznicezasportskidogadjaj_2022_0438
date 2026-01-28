@@ -12,4 +12,14 @@ class Ulaznica extends Model
         'status',
         'qrKod',
     ];
+
+      public function kategorija()
+    {
+        return $this->belongsTo(KategorijaUlaznica::class, 'kategorijaUlaznicaId');
+    }
+
+    public function korisnik()
+    {
+        return $this->belongsTo(User::class, 'korisnikId');
+    }
 }

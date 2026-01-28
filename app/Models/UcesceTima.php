@@ -11,4 +11,14 @@ class UcesceTima extends Model
         'timId',
         'uloga',
     ];
+
+    public function sportskiDogadjaj()
+    {
+        return $this->belongsTo(SportskiDogadjaj::class, 'dogadjajId');
+    }
+
+    public function tim()
+    {
+        return $this->belongsTo(Tim::class, 'timId');
+    }
 }

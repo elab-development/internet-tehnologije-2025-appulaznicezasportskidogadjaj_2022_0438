@@ -52,4 +52,16 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Korisnik poseduje više sportskih događaja
+    public function sportskiDogadjaji()
+    {
+        return $this->hasMany(SportskiDogadjaj::class, 'korisnikId');
+    }
+
+    // Korisnik poseduje više ulaznica
+    public function ulaznice()
+    {
+        return $this->hasMany(Ulaznica::class, 'korisnikId');
+    }
 }
