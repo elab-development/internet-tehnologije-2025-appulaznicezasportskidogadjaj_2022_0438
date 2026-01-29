@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tim extends Model
 {
+
+    protected $table = 'timovi';
+
     protected $fillable = [
         'naziv',
         'grad',
