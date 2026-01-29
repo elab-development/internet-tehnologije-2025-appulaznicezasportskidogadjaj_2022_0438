@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->foreignId('korisnikId')->constrained('users')->cascadeOnDelete();
 
-            $table->enum('status', ['AKTIVNA', 'ISKORISCENA', 'OTKAZANA'])->default('AKTIVNA');
+            $table->enum('statusUlaznice', ['AKTIVNA', 'ISKORISCENA', 'OTKAZANA']);
 
             $table->string('qrKod')->unique();
 

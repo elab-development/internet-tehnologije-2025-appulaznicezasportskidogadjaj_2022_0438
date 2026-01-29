@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
 
             $table->string('naziv');
-            $table->text('opis')->nullable();
+            $table->text('opis');
             $table->string('lokacija');
             $table->dateTime('datumVreme');
             $table->boolean('aktivan')->default(true);
 
-            $table->foreignId('korisnikId')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('korisnikId');
 
             $table->timestamps();//created_at, updated_at
         });
