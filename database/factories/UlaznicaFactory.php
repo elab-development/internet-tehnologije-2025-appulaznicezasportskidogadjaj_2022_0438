@@ -2,7 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\KategorijaUlaznica;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Ulaznica>
@@ -22,10 +25,9 @@ class UlaznicaFactory extends Factory
             'korisnikId' => User::factory(),
 
             'status' => fake()->randomElement([
-                'REZERVISANA',
-                'PRODATA',
-                'OTKAZANA',
+                'AKTIVNA',
                 'ISKORISCENA',
+                'OTKAZANA',
             ]),
             
             'qrKod' => (string) Str::uuid(),

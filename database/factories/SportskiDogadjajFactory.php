@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,7 @@ class SportskiDogadjajFactory extends Factory
     {
         return [
             'naziv' => fake()->sentence(3),
-            'opis' => fake()->paragraph(),
+            'opis' => fake()->text(150),
             'lokacija' => fake()->city(),
             'datumVreme' => fake()->dateTimeBetween('+1 days', '+6 months'),
             'aktivan' => fake()->boolean(90), // 90% šanse da je aktivan

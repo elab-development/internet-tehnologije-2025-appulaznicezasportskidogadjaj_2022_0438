@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\SportskiDogadjaj;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\KategorijaUlaznica>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\KategorijaUlaznice>
  */
-class KategorijaUlazniceFactory extends Factory
+class KategorijaUlaznicaFactory extends Factory
 {
     /**
      * Define the model's default state.

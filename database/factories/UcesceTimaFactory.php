@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\SportskiDogadjaj;
+use App\Models\Tim;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
