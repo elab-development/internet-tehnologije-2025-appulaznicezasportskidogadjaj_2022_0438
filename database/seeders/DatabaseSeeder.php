@@ -10,6 +10,7 @@ use App\Models\Ulaznica;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +21,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        //Ovo spada u naprednije zahteve kao i mozes kroz konzolu onom komandom: php artisan migrate:fresh --seed
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Ulaznica::truncate();
+        UcesceTima::truncate();
+        KategorijaUlaznica::truncate();
+        SportskiDogadjaj::truncate();
+        Tim::truncate();
+        User::truncate();
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         User::factory(10)->create();
         Tim::factory(30)->create();
 
