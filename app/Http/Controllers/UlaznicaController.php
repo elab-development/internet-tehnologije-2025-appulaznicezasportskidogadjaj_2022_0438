@@ -47,7 +47,7 @@ class UlaznicaController extends Controller
         }
 
         $ulaznica = Ulaznica::create($validator->validated());
-        return response()->json(new UlaznicaResource($ulaznica, 201));
+        return response()->json(new UlaznicaResource($ulaznica), 201);
     }
 
     /**
@@ -74,7 +74,7 @@ class UlaznicaController extends Controller
         $ulaznica = Ulaznica::find($id);
 
         if(!$ulaznica){
-            return response()->json(['Ulaznica nije pronadjena.'], 404);
+            return response()->json(['message' => 'Ulaznica nije pronadjena.'], 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -93,7 +93,7 @@ class UlaznicaController extends Controller
 
         $data = $validator->validated();
         $ulaznica->update($data);
-        return response()->json($ulaznica,201);
+        return response()->json(new UlaznicaResource($ulaznica), 200);
     }
 
     /**
@@ -104,10 +104,10 @@ class UlaznicaController extends Controller
         $ulaznica = Ulaznica::find($id);
 
         if(!$ulaznica){
-            return response()->json(['Ulaznica nije pronadjena.'], 404);
+            return response()->json(['message' => 'Ulaznica nije pronadjena.'], 404);
         }
 
             $ulaznica->delete();
-            return response()->json(['Ulaznica je obrisana.'], 200);
+            return response()->json(['message' => 'Ulaznica je obrisana.'], 200);
     }
 }

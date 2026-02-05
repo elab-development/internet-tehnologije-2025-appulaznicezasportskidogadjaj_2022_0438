@@ -94,7 +94,7 @@ class KategorijaUlaznicaController extends Controller
 
         $data = $validator->validated();
         $kategorija->update($data);
-        return response()->json($kategorija,201);
+        return response()->json(new KategorijaUlaznicaResource($kategorija), 200);
     }
 
     /**

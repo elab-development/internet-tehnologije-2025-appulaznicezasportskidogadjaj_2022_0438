@@ -91,7 +91,7 @@ class UcesceTimaController extends Controller
 
         $data = $validator->validated();
         $ucesce->update($data);
-        return response()->json($ucesce, 201);
+        return response()->json(new UcesceTimaResource($ucesce), 200);
     }
 
     /**

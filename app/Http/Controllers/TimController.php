@@ -72,7 +72,7 @@ class TimController extends Controller
         $tim = Tim::find($id);
 
         if(!$tim){
-            return response()->json(['Tim nije pronadjen.'], 404);
+            return response()->json(['message' => 'Tim nije pronadjen.'], 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -89,7 +89,7 @@ class TimController extends Controller
 
         $data = $validator->validated();
         $tim->update($data);
-        return response()->json($tim,201);
+        return response()->json(new TimResource($tim), 200);
 
 
     }
@@ -102,10 +102,10 @@ class TimController extends Controller
         $tim = Tim::find($id);
 
         if(!$tim){
-            return response()->json(['Tim nije pronadjen.'], 404);
+            return response()->json(['message' => 'Tim nije pronadjen.'], 404);
         }
 
             $tim->delete();
-            return response()->json(['Tim je obrisan.'], 200);
+            return response()->json(['message' => 'Tim je obrisan.'], 200);
     }
 }

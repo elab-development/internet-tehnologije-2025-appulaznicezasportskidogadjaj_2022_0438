@@ -52,7 +52,7 @@ class SportskiDogadjajController extends Controller
         }
         $data = $validator->validated();
         $sportskiDogadjaj = SportskiDogadjaj::create($data);
-        return response()->json(new SportskiDogadjaj($sportskiDogadjaj),201);
+        return response()->json(new SportskiDogadjajResource($sportskiDogadjaj), 201);
     }
 
     /**
@@ -101,7 +101,7 @@ class SportskiDogadjajController extends Controller
 
         $data = $validator->validated();
         $sportskiDogadjaj->update($data);
-       return response()->json(new SportskiDogadjaj($sportskiDogadjaj),201);
+           return response()->json(new SportskiDogadjajResource($sportskiDogadjaj), 200);
 
     }
 
