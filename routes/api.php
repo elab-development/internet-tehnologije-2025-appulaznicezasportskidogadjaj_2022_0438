@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KategorijaUlaznicaController;
 use App\Http\Controllers\SportskiDogadjajController;
 use App\Http\Controllers\TimController;
@@ -7,6 +8,16 @@ use App\Http\Controllers\UcesceTimaController;
 use App\Http\Controllers\UlaznicaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+// authentication ruta //
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/me', [AuthController::class, 'me']);
+});
 
 //resource ruta//
 
@@ -45,8 +56,6 @@ Route::get('/ulaznice/filter/{status}', function ($status) {
     ]);
 })->where('status', '[a-z]+');
 
-//fallback ruta //
-
 Route::fallback(function (Request $request) {
     return response()->json([
         'error' => 'Route not found',
@@ -56,24 +65,4 @@ Route::fallback(function (Request $request) {
         'method' => $request->method(),
         'path' => $request->path()
     ], 404);
-});
-
-Route::post('/users', function (Illuminate\Http\Request $request) {
-    $request->validate([
-        'ime' => 'required|string',
-        'prezime' => 'required|string',
-        'email' => 'required|email|unique:users',
-        'password' => 'required|string|min:6',
-        'role' => 'required|in:admin,moderator,korisnik',
-    ]);
-
-    $user = App\Models\User::create([
-        'ime' => $request->ime,
-        'prezime' => $request->prezime,
-        'email' => $request->email,
-        'password' => bcrypt($request->password),
-        'role' => $request->role,
-    ]);
-
-    return response()->json($user, 201);
 });
