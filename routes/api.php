@@ -8,35 +8,53 @@ use App\Http\Controllers\UlaznicaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+//resource ruta//
 
+Route::resource('sportskidogadjaji', SportskiDogadjajController::class);
+Route::resource('kategorijeulaznica', KategorijaUlaznicaController::class);
 
-Route::get('/sportskidogadjaji', [SportskiDogadjajController::class,'index']);
-Route::get('/sportskidogadjaji/{id}', [SportskiDogadjajController::class,'show']);
-Route::post('/sportskidogadjaji', [SportskiDogadjajController::class,'store']);
-Route::delete('/sportskidogadjaji/{id}', [SportskiDogadjajController::class,'destroy']);
-Route::put('/sportskidogadjaji/{id}', [SportskiDogadjajController::class,'update']);
+//grupa ruta//
 
-Route::get('/kategorijeulaznica', [KategorijaUlaznicaController::class,'index']);
-Route::get('/kategorijeulaznica/{id}', [KategorijaUlaznicaController::class,'show']);
-Route::post('/kategorijeulaznica', [KategorijaUlaznicaController::class,'store']);
-Route::delete('/kategorijeulaznica/{id}', [KategorijaUlaznicaController::class,'destroy']);
-Route::put('/kategorijeulaznica/{id}', [KategorijaUlaznicaController::class,'update']);
+Route::prefix('timovi')->name('timovi.')->group(function () {
+    Route::get('/', [TimController::class, 'index'])->name('index');
+    Route::get('/{id}', [TimController::class, 'show'])->name('show');
+    Route::post('/', [TimController::class, 'store'])->name('store');
+    Route::put('/{id}', [TimController::class, 'update'])->name('update');
+    Route::delete('/{id}', [TimController::class, 'destroy'])->name('destroy');
+});
 
-Route::get('/timovi', [TimController::class,'index']);
-Route::get('/timovi/{id}', [TimController::class,'show']);
-Route::post('/timovi', [TimController::class,'store']);
-Route::delete('/timovi/{id}', [TimController::class,'destroy']);
-Route::put('/timovi/{id}', [TimController::class,'update']);
+Route::prefix('uscescatima')->name('uscescatima.')->group(function () {
+    Route::get('/', [UcesceTimaController::class, 'index'])->name('index');
+    Route::get('/{id}', [UcesceTimaController::class, 'show'])->name('show');
+    Route::post('/', [UcesceTimaController::class, 'store'])->name('store');
+    Route::put('/{id}', [UcesceTimaController::class, 'update'])->name('update');
+    Route::delete('/{id}', [UcesceTimaController::class, 'destroy'])->name('destroy');
+});
 
-Route::get('/uscescatima', [UcesceTimaController::class,'index']);
-Route::get('/uscescatima/{id}', [UcesceTimaController::class,'show']);
-Route::post('/uscescatima', [UcesceTimaController::class,'store']);
-Route::delete('/uscescatima/{id}', [UcesceTimaController::class,'destroy']);
-Route::put('/uscescatima/{id}', [UcesceTimaController::class,'update']);
+//dinamicka ruta//
 
-// Route::get('/ulaznice', [UlaznicaController::class,'index']);
-// Route::get('/ulaznice/{id}', [UlaznicaController::class,'show']);
-// Route::post('/ulaznice', [UlaznicaController::class,'store']);
-// Route::delete('/ulaznice/{id}', [UlaznicaController::class,'destroy']);
-// Route::put('/ulaznice/{id}', [UlaznicaController::class,'update']);
-Route::resource('/ulaznice', UlaznicaController::class);
+Route::get('/ulaznice/{id}', [UlaznicaController::class, 'show'])->where('id', '[0-9]+');
+Route::get('/ulaznice', [UlaznicaController::class, 'index']);
+Route::post('/ulaznice', [UlaznicaController::class, 'store']);
+Route::put('/ulaznice/{id}', [UlaznicaController::class, 'update'])->where('id', '[0-9]+');
+Route::delete('/ulaznice/{id}', [UlaznicaController::class, 'destroy'])->where('id', '[0-9]+');
+Route::get('/ulaznice/filter/{status}', function ($status) {
+    return response()->json([
+        'status' => $status,
+        'message' => "Filtering ulaznice by status: {$status}"
+    ]);
+})->where('status', '[a-z]+');
+
+//fallback ruta //
+
+Route::fallback(function (Request $request) {
+    return response()->json([
+        'error' => 'Route not found',
+        'message' => "The endpoint {$request->method()} {$request->path()} does not exist.",
+        'status' => 404,
+        'timestamp' => now(),
+        'method' => $request->method(),
+        'path' => $request->path()
+    ], 404);
+});
+
