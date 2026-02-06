@@ -20,10 +20,9 @@ class User extends Authenticatable
     protected $fillable = [
         'ime',
         'prezime',
-        //'name',
         'email',
         'password',
-        //'uloga',
+        'role',
     ];
 
     protected $casts = [
@@ -63,5 +62,37 @@ class User extends Authenticatable
     public function ulaznice()
     {
         return $this->hasMany(Ulaznica::class, 'korisnikId');
+    }
+
+    // provera uloga
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isModerator(): bool
+    {
+        return $this->role === 'moderator';
+    }
+
+    public function isKorisnik(): bool
+    {
+        return $this->role === 'korisnik';
+    }
+
+    // Dozvole (Permissions)
+    public function canCreateEvent(): bool
+    {
+        return $this->isAdmin();
+    }
+
+    public function canEditEvent(): bool
+    {
+        return $this->isAdmin() || $this->isModerator();
+    }
+
+    public function canDeleteEvent(): bool
+    {
+        return $this->isAdmin();
     }
 }

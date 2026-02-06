@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tim;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TimResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class TimController extends Controller
 {
@@ -31,6 +33,16 @@ class TimController extends Controller
      */
     public function store(Request $request)
     {
+        /** @var User $user */
+        $user = Auth::user();
+
+        
+        if (!$user || !$user->canCreateEvent()) {
+            return response()->json([
+                'message' => 'Nemate dozvolu da kreirate tim. Samo admin može kreirati timove.',
+            ], 403);
+        }
+
         $validator = Validator::make($request->all(), [
             'naziv' => 'required|string|max:255',
             'grad' => 'required|string|max:255',
@@ -45,7 +57,8 @@ class TimController extends Controller
 
         $data = $validator->validated();
         $tim = Tim::create($data);
-        return response()->json(new TimResource($tim),201);
+
+        return response()->json(new TimResource($tim), 201);
     }
 
     /**
@@ -69,6 +82,16 @@ class TimController extends Controller
      */
     public function update(Request $request, $id)
     {
+        /** @var User $user */
+        $user = Auth::user();
+
+        
+        if (!$user || !$user->canEditEvent()) {
+            return response()->json([
+                'message' => 'Nemate dozvolu da menjate tim. Samo admin i moderator mogu menjati timove.',
+            ], 403);
+        }
+
         $tim = Tim::find($id);
 
         if(!$tim){
@@ -89,9 +112,8 @@ class TimController extends Controller
 
         $data = $validator->validated();
         $tim->update($data);
+
         return response()->json(new TimResource($tim), 200);
-
-
     }
 
     /**
@@ -99,13 +121,23 @@ class TimController extends Controller
      */
     public function destroy($id)
     {
+        /** @var User $user */
+        $user = Auth::user();
+
+        
+        if (!$user || !$user->canDeleteEvent()) {
+            return response()->json([
+                'message' => 'Nemate dozvolu da obrišete tim. Samo admin može brisati timove.',
+            ], 403);
+        }
+
         $tim = Tim::find($id);
 
         if(!$tim){
             return response()->json(['message' => 'Tim nije pronadjen.'], 404);
         }
 
-            $tim->delete();
-            return response()->json(['message' => 'Tim je obrisan.'], 200);
+        $tim->delete();
+        return response()->json(['message' => 'Tim je obrisan.'], 200);
     }
 }

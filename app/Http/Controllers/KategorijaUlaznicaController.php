@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\KategorijaUlaznica;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\KategorijaUlaznicaResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class KategorijaUlaznicaController extends Controller
-{
+{   
+    
     /**
      * Display a listing of the resource.
      */
@@ -28,6 +31,16 @@ class KategorijaUlaznicaController extends Controller
      */
     public function store(Request $request)
     {
+        /** @var User $user */
+        $user = Auth::user();
+
+        //admin može kreirati kategorije ulaznica
+        if (!$user || !$user->canCreateEvent()) {
+            return response()->json([
+                'message' => 'Nemate dozvolu da kreirate kategoriju ulaznice. Samo admin može kreirati kategorije.',
+            ], 403);
+        }
+
         $validator = Validator::make($request->all(), [
             'dogadjajId' => 'required|exists:sportskidogadjaji,id',
             'naziv' => 'required|string|max:255',
@@ -47,7 +60,7 @@ class KategorijaUlaznicaController extends Controller
 
         $kategorija = KategorijaUlaznica::create($data);
 
-        return response()->json(new KategorijaUlaznicaResource($kategorija),201);
+        return response()->json(new KategorijaUlaznicaResource($kategorija), 201);
     }
 
     /**
@@ -71,6 +84,16 @@ class KategorijaUlaznicaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        /** @var User $user */
+        $user = Auth::user();
+
+        // samo admin i moderator mogu menjati kategorije 
+        if (!$user || !$user->canEditEvent()) {
+            return response()->json([
+                'message' => 'Nemate dozvolu da menjate kategoriju ulaznice. Samo admin i moderator mogu menjati kategorije.',
+            ], 403);
+        }
+
         $kategorija = KategorijaUlaznica::find($id);
 
         if(!$kategorija){
@@ -102,13 +125,23 @@ class KategorijaUlaznicaController extends Controller
      */
     public function destroy($id)
     {
+        /** @var User $user */
+        $user = Auth::user();
+
+        // samo admin može brisati kategorije 
+        if (!$user || !$user->canDeleteEvent()) {
+            return response()->json([
+                'message' => 'Nemate dozvolu da obrišete kategoriju ulaznice. Samo admin može brisati kategorije.',
+            ], 403);
+        }
+
         $kategorija = KategorijaUlaznica::find($id);
 
         if(!$kategorija){
             return response()->json(['message' => 'Kategorija nije pronadjena.'], 404);
         }
 
-            $kategorija->delete();
-            return response()->json(['message' => 'Kategorija je obrisana.'], 200);
+        $kategorija->delete();
+        return response()->json(['message' => 'Kategorija je obrisana.'], 200);
     }
 }

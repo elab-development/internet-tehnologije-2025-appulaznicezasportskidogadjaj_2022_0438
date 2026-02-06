@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\UcesceTima;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UcesceTimaResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class UcesceTimaController extends Controller
 {
@@ -31,6 +33,16 @@ class UcesceTimaController extends Controller
      */
     public function store(Request $request)
     {
+        /** @var User $user */
+        $user = Auth::user();
+
+        
+        if (!$user || !$user->canCreateEvent()) {
+            return response()->json([
+                'message' => 'Nemate dozvolu da kreirate učešće tima. Samo admin može kreirati učešća.',
+            ], 403);
+        }
+
         $validator = Validator::make($request->all(), [
             'dogadjajId' => 'required|exists:sportskidogadjaji,id',
             'timId' => 'required|exists:timovi,id',
@@ -46,6 +58,7 @@ class UcesceTimaController extends Controller
 
         $data = $validator->validated();
         $ucesce = UcesceTima::create($data);
+
         return response()->json(new UcesceTimaResource($ucesce), 201);
     }
 
@@ -70,6 +83,16 @@ class UcesceTimaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        /** @var User $user */
+        $user = Auth::user();
+
+        
+        if (!$user || !$user->canEditEvent()) {
+            return response()->json([
+                'message' => 'Nemate dozvolu da menjate učešće tima. Samo admin i moderator mogu menjati učešća.',
+            ], 403);
+        }
+
         $ucesce = UcesceTima::find($id);
 
         if (!$ucesce) {
@@ -91,6 +114,7 @@ class UcesceTimaController extends Controller
 
         $data = $validator->validated();
         $ucesce->update($data);
+
         return response()->json(new UcesceTimaResource($ucesce), 200);
     }
 
@@ -99,13 +123,23 @@ class UcesceTimaController extends Controller
      */
     public function destroy($id)
     {
-         $ucesce = UcesceTima::find($id);
+        /** @var User $user */
+        $user = Auth::user();
+
+        
+        if (!$user || !$user->canDeleteEvent()) {
+            return response()->json([
+                'message' => 'Nemate dozvolu da obrišete učešće tima. Samo admin može brisati učešća.',
+            ], 403);
+        }
+
+        $ucesce = UcesceTima::find($id);
 
         if(!$ucesce){
             return response()->json(['message' => 'Ucesce nije pronadjeno.'], 404);
         }
 
-            $ucesce->delete();
-            return response()->json(['message' => 'Ucesce je obrisano.'], 200);
+        $ucesce->delete();
+        return response()->json(['message' => 'Ucesce je obrisano.'], 200);
     }
 }

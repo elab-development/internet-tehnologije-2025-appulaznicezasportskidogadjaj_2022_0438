@@ -58,3 +58,22 @@ Route::fallback(function (Request $request) {
     ], 404);
 });
 
+Route::post('/users', function (Illuminate\Http\Request $request) {
+    $request->validate([
+        'ime' => 'required|string',
+        'prezime' => 'required|string',
+        'email' => 'required|email|unique:users',
+        'password' => 'required|string|min:6',
+        'role' => 'required|in:admin,moderator,korisnik',
+    ]);
+
+    $user = App\Models\User::create([
+        'ime' => $request->ime,
+        'prezime' => $request->prezime,
+        'email' => $request->email,
+        'password' => bcrypt($request->password),
+        'role' => $request->role,
+    ]);
+
+    return response()->json($user, 201);
+});
