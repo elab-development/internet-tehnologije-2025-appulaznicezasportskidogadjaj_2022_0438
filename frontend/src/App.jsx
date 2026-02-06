@@ -1,53 +1,25 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
+import Navbar from './components/Navbar'
+import Home from './pages/Home'
+import Dogadjaji from './pages/Dogadjaji'
+import Karte from './pages/Karte'
+import Login from './pages/Login'
+import Register from './pages/Register'
 
 function App() {
   return (
     <Router>
-      <nav className="navbar">
-        <div className="nav-container">
-          <Link to="/" className="nav-logo">🏆 Sportski Događaji</Link>
-          <ul className="nav-menu">
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/events">Events</Link></li>
-            <li><Link to="/tickets">Tickets</Link></li>
-          </ul>
-        </div>
-      </nav>
+      <Navbar />
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/tickets" element={<Tickets />} />
+        <Route path="/dogadjaji" element={<Dogadjaji />} />
+        <Route path="/karte" element={<Karte />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
-  )
-}
-
-function Home() {
-  return (
-    <div className="container">
-      <h1>Dobrodošli</h1>
-      <p>Aplikacija za upravljanje ulaznicama za sportske događaje</p>
-    </div>
-  )
-}
-
-function Events() {
-  return (
-    <div className="container">
-      <h1>Sportski Događaji</h1>
-      <p>Učitavanje podataka sa servera...</p>
-    </div>
-  )
-}
-
-function Tickets() {
-  return (
-    <div className="container">
-      <h1>Ulaznice</h1>
-      <p>Učitavanje dostupnih ulaznica...</p>
-    </div>
   )
 }
 
