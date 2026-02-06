@@ -3,7 +3,7 @@ export default function Forma({ children, onSubmit, title }) {
     <div className="auth-container">
       <div className="auth-card">
         <h1>{title}</h1>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} className="auth-form">
           {children}
         </form>
       </div>

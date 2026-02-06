@@ -4,18 +4,27 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  background-color: #f5f5f5;
+  background: linear-gradient(to bottom, #e8f4fd 0%, #cce5ff 50%, #e8f4fd 100%);
+  background-attachment: fixed;
+  color: #003d99;
+  line-height: 1.6;
 }
 
 .navbar {
-  background-color: #333;
+  background: linear-gradient(135deg, #001f4d 0%, #003d99 50%, #0052cc 100%);
   padding: 1rem 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 52, 153, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   position: sticky;
   top: 0;
   z-index: 100;
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid rgba(163, 213, 255, 0.2);
 }
 
 .nav-container {
@@ -29,39 +38,101 @@ body {
 
 .nav-logo {
   color: white;
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 28px;
+  font-weight: 700;
   text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-logo:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 20px rgba(163, 213, 255, 0.6);
 }
 
 .nav-menu {
   display: flex;
   list-style: none;
-  gap: 2rem;
+  gap: 2.5rem;
+}
+
+.nav-menu li {
+  position: relative;
 }
 
 .nav-menu a {
   color: white;
   text-decoration: none;
-  transition: color 0.3s;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 4px;
+  position: relative;
+}
+
+.nav-menu a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #a3d5ff, #7ab8ff);
+  transition: width 0.3s ease;
 }
 
 .nav-menu a:hover {
-  color: #4a9eff;
+  color: #a3d5ff;
+  text-shadow: 0 0 12px rgba(163, 213, 255, 0.5);
+  background-color: rgba(163, 213, 255, 0.15);
+}
+
+.nav-menu a:hover::before {
+  width: 100%;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 60px 20px;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .container h1 {
-  color: #333;
-  margin-bottom: 20px;
+  color: #001f4d;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+}
+
+.container h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #0052cc, transparent);
+  border-radius: 2px;
 }
 
 .container p {
-  color: #666;
+  color: #0052cc;
   font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 20px;
 }
