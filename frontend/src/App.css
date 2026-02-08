@@ -118,3 +118,368 @@
   font-weight: 500;
   margin-bottom: 20px;
 }
+
+
+/*=====*/
+
+/* ===== POČETNA STRANA ===== */
+
+.pocetna {
+  background: linear-gradient(180deg, #f4f8ff 0%, #ffffff 100%);
+  min-height: calc(100vh - 80px);
+}
+
+/* HERO */
+.pocetna-hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 20px;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* LEVA STRANA */
+.pocetna-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #001f4d;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.pocetna-subtitle {
+  font-size: 1.1rem;
+  color: #0052cc;
+  max-width: 520px;
+  margin-bottom: 35px;
+  line-height: 1.6;
+}
+
+/* AKCIJE */
+.pocetna-hero-actions {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 14px 30px;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #0052cc, #003d99);
+  color: white;
+  box-shadow: 0 10px 30px rgba(0, 82, 204, 0.35);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(0, 82, 204, 0.5);
+}
+
+.btn-secondary {
+  border: 2px solid #0052cc;
+  color: #0052cc;
+  background: transparent;
+}
+
+.btn-secondary:hover {
+  background: rgba(0, 82, 204, 0.1);
+  transform: translateY(-3px);
+}
+
+/* META */
+.pocetna-hero-meta {
+  display: flex;
+  gap: 25px;
+  font-size: 0.9rem;
+  color: #003d99;
+}
+
+/* DESNA KARTICA */
+.pocetna-hero-card {
+  background: linear-gradient(180deg, #ffffff, #f6f9ff);
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.pocetna-hero-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at top right,
+    rgba(0, 82, 204, 0.12),
+    transparent 60%
+  );
+}
+
+.pocetna-balance-label {
+  font-size: 0.9rem;
+  color: #0052cc;
+  font-weight: 600;
+}
+
+.pocetna-balance-value {
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: #001f4d;
+  margin: 10px 0 25px;
+}
+
+/* PILLOVI */
+.pocetna-balance-pillovi {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  padding: 14px 18px;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 1rem;
+  min-width: 110px;
+  text-align: center;
+}
+
+.pill span {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+/* VARIJANTE */
+.pill-priliv {
+  background: rgba(0, 82, 204, 0.12);
+  color: #003d99;
+}
+
+.pill-odliv {
+  background: rgba(0, 52, 153, 0.18);
+  color: #001f4d;
+}
+
+.pill-neutral {
+  background: rgba(163, 213, 255, 0.35);
+  color: #003d99;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .pocetna-hero {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .pocetna-title {
+    font-size: 2.3rem;
+  }
+
+  .pocetna-hero-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+
+/*======*/
+
+.pocetna-section {
+  background: linear-gradient(180deg, #ffffff 0%, #f4f8ff 100%);
+  padding: 90px 20px;
+}
+
+.pocetna-section h2 {
+  text-align: center;
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #001f4d;
+  margin-bottom: 15px;
+}
+
+.pocetna-section-subtitle {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 70px;
+  font-size: 1.1rem;
+  color: #0052cc;
+  line-height: 1.6;
+}
+
+/* GRID LAYOUT */
+.pocetna-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 35px;
+}
+
+/* CARD */
+.card {
+  background: linear-gradient(180deg, #ffffff, #f9fbff);
+  border-radius: 22px;
+  padding: 35px 30px;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Svetlece */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at top right,
+    rgba(0, 82, 204, 0.15),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.14);
+}
+
+.card h3 {
+font-size: 1.35rem;
+  font-weight: 700;
+  color: #001f4d;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px; /* RAZMAK izmedju ikonice i teksta */
+}
+
+.card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.card li {
+  position: relative;
+  padding-left: 0; 
+  margin-bottom: 14px;
+  color: #003d99;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.4;
+  padding-left: 0;
+}
+
+.card li::before {
+  content: none;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .pocetna-section h2 {
+    font-size: 2.1rem;
+  }
+
+  .pocetna-section-subtitle {
+    font-size: 1rem;
+  }
+
+  .card {
+    padding: 28px 24px;
+  }
+}
+
+
+.pocetna-cta {
+  background: rgba(0, 82, 204, 0.08); /* suptilni plavi ton, skoro providan */
+  color: #003d99;
+  padding: 60px 20px;
+  border-radius: 12px;
+  text-align: center;
+  margin: 50px auto;
+  max-width: 720px;
+  box-shadow: 0 4px 15px rgba(0, 82, 204, 0.15); /* blaga senka za “lebdenje” */
+  border: 1.5px solid rgba(0, 82, 204, 0.3); /* suptilna plava ivica */
+}
+
+.pocetna-cta-box h2 {
+  font-size: 2rem;
+  margin-bottom: 18px;
+  font-weight: 700;
+  color: #002966;
+}
+
+.pocetna-cta-box p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  line-height: 1.5;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #0047b3;
+}
+
+.pocetna-hero-actions {
+  display: inline-flex;
+  gap: 18px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background-color: #0052cc;
+  color: white;
+  font-weight: 700;
+  padding: 12px 26px;
+  border-radius: 28px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 82, 204, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: #003d99;
+  box-shadow: 0 6px 12px rgba(0, 61, 153, 0.5);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: #0052cc;
+  border: 2px solid #0052cc;
+  font-weight: 600;
+  padding: 12px 26px;
+  border-radius: 28px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #e6f0ff;
+  color: #003d99;
+}
